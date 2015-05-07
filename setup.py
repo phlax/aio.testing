@@ -21,7 +21,7 @@ setup(
     url='http://github.com/phlax/aio.testing',
     license='GPL',
     packages=find_packages(),
-    namespace_packages=['aio', 'aio.testing'],
+    namespace_packages=['aio'],
     include_package_data=True,
     zip_safe=False,
     install_requires=[
