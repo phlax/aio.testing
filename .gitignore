@@ -50,3 +50,6 @@ Thumbs.db
 cover
 
 *.egg-info
+
+build
+dist
