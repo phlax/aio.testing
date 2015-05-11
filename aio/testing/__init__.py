@@ -49,6 +49,10 @@ def aiofuturetest(*la, **kwa):
                 handler = Handler()
 
                 def run_test(f):
+                    if not callable(f):
+                        loop.stop()
+                        loop.close()
+                        return
 
                     @asyncio.coroutine
                     def wrapper():
