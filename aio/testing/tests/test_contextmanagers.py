@@ -12,7 +12,7 @@ class AioTestingContextmanagersTestCase(unittest.TestCase):
             sys.stdout.write("YAY!")
             sys.stderr.write("EEK!")
             stderr = o.getvalue()
-        self.assertEquals(stderr, "EEK!")
+        self.assertEqual(stderr, "EEK!")
 
     def test_redirect_all(self):
         with io.StringIO() as o, redirect_all(o):
@@ -20,7 +20,7 @@ class AioTestingContextmanagersTestCase(unittest.TestCase):
             sys.stdout.write("YAY!")
             sys.stderr.write("EEK!")
             stdall = o.getvalue()
-        self.assertEquals(stdall, "YAY!EEK!")
+        self.assertEqual(stdall, "YAY!EEK!")
 
     def test_redirect_all_separate(self):
         with io.StringIO() as o, io.StringIO() as e, redirect_all(o, e):
@@ -29,5 +29,5 @@ class AioTestingContextmanagersTestCase(unittest.TestCase):
             sys.stderr.write("EEK!")
             stdout = o.getvalue()
             stderr = e.getvalue()
-        self.assertEquals(stdout, "YAY!")
-        self.assertEquals(stderr, "EEK!")
+        self.assertEqual(stdout, "YAY!")
+        self.assertEqual(stderr, "EEK!")
