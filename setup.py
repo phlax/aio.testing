@@ -24,6 +24,7 @@ setup(
     namespace_packages=['aio'],
     include_package_data=True,
     zip_safe=False,
+    test_suite="aio.testing.tests",    
     install_requires=[
         'setuptools',
         ],
