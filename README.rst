@@ -5,7 +5,10 @@ Test utils for the [aio](https://github.com/phlax/aio) asyncio framework
 
 Build status
 ------------
-[![Build Status](https://travis-ci.org/phlax/aio.testing.svg?branch=master)](https://travis-ci.org/phlax/aio.testing)
+
+.. image:: https://travis-ci.org/phlax/aio.testing.svg?branch=master
+	       :target: https://travis-ci.org/phlax/aio.testing
+
 
 
 Installation
@@ -69,7 +72,7 @@ The callback returned should be a coroutine.
 		  @asyncio.coroutine
 		  def callback_test(self):
 		      yield from asyncio.sleep(2)		  
-		      self.asserTrue(True)
+		      self.assertTrue(True)
 
 		  # this function is called 5 seconds after being returned		      
 		  return callback_test
@@ -102,7 +105,7 @@ You can specify how many seconds to wait *before* running the callback tests by 
 		  @asyncio.coroutine
 		  def callback_test(self):
 		      yield from asyncio.sleep(2)		  
-		      self.asserTrue(True)
+		      self.assertTrue(True)
 
 		  # this function is called 10 seconds after being returned		      
 		  return callback_test
@@ -133,7 +136,7 @@ You can specify how many seconds to wait *after* running the callback tests by s
 		  @asyncio.coroutine
 		  def callback_test(self):
 		      yield from asyncio.sleep(2)		  
-		      self.asserTrue(True)
+		      self.assertTrue(True)
 
 		  return callback_test
 		  
