@@ -26,7 +26,10 @@ aio.testing provides a decorator for running asyncio-based - @aiotest
 .. code:: python
 
 	  import unittest
+	  import asyncio
+
 	  from aio.testing import aiotest
+
 
 	  class MyTestCase(unittest.TestCase):
 
@@ -34,5 +37,3 @@ aio.testing provides a decorator for running asyncio-based - @aiotest
 	      def test_example(self):
 	          yield from asyncio.sleep(2)
 		  self.assertTrue(True)
-
-	  
