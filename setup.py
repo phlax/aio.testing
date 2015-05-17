@@ -1,6 +1,7 @@
 """
 aio.testing
 """
+import os
 from setuptools import setup, find_packages
 
 from aio.testing import __version__ as version
@@ -15,11 +16,11 @@ setup(
     name='aio.testing',
     version=version,
     description="Asyncio testing utils",
-    long_description=long_description,    
+    long_description=long_description,
     classifiers=[
-        "Development Status :: 4 - Beta",        
-        "Intended Audience :: Developers",        
-        "Programming Language :: Python :: 3.4",        
+        "Development Status :: 4 - Beta",
+        "Intended Audience :: Developers",
+        "Programming Language :: Python :: 3.4",
         "Topic :: Software Development :: Libraries :: Python Modules",
         ],
     keywords='',
@@ -31,7 +32,7 @@ setup(
     namespace_packages=['aio'],
     include_package_data=True,
     zip_safe=False,
-    test_suite="aio.testing.tests",    
+    test_suite="aio.testing.tests",
     install_requires=[
         'setuptools',
         ],
