@@ -1,7 +1,10 @@
 aio.testing
 ===========
 
-Test utils for the [aio](https://github.com/phlax/aio) asyncio framework
+Test utils for the aio_ asyncio framework
+
+.. _aio: https://github.com/phlax/aio
+
 
 Build status
 ------------

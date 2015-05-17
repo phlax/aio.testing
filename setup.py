@@ -1,18 +1,25 @@
 """
 aio.testing
 """
-
 from setuptools import setup, find_packages
 
 from aio.testing import __version__ as version
 
 
+def read(*rnames):
+    return open(os.path.join(os.path.dirname(__file__), *rnames)).read()
+
+long_description = read("README.rst")
+
 setup(
     name='aio.testing',
     version=version,
-    description="Aio testing utils",
+    description="Asyncio testing utils",
+    long_description=long_description,    
     classifiers=[
-        "Programming Language :: Python",
+        "Development Status :: 4 - Beta",        
+        "Intended Audience :: Developers",        
+        "Programming Language :: Python :: 3.4",        
         "Topic :: Software Development :: Libraries :: Python Modules",
         ],
     keywords='',
