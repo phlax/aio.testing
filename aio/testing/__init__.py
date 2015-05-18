@@ -39,32 +39,34 @@ def aiofuturetest(*la, **kwa):
             parent_loop = asyncio.get_event_loop()
             try:
                 loop = asyncio.new_event_loop()
+                loop.set_debug(True)
                 asyncio.set_event_loop(loop)
                 coro = asyncio.coroutine(f)
                 future = coro(*la, **kwa)
 
                 class Handler:
                     exception = None
+                    called = False
 
                 handler = Handler()
 
                 def run_test(f):
                     if not callable(f):
                         loop.stop()
-                        loop.close()
+                        handler.called = True
                         return
 
                     @asyncio.coroutine
                     def wrapper():
                         try:
                             yield from f()
+                            handler.called = True
                         except Exception as e:
                             handler.exception = e
                         finally:
                             if sleep:
                                 yield from asyncio.sleep(sleep)
                             loop.stop()
-                            loop.close()
                     asyncio.async(wrapper())
 
                 def on_setup(res):
@@ -78,10 +80,18 @@ def aiofuturetest(*la, **kwa):
 
                 task = asyncio.async(future)
                 task.add_done_callback(on_setup)
-                loop.run_forever()
+
+                def _handler(loop, context):
+                    handler.exception = context['exception']
+                    
+                loop.set_exception_handler(_handler)
+                res = loop.run_forever()
 
                 if handler.exception:
                     raise handler.exception
+                if not handler.called:
+                    import sys
+                    raise Exception("Loop already stopped: test failed to run").with_traceback(sys.exc_info()[2])
             finally:
                 loop.stop()
                 loop.close()
