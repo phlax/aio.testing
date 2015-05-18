@@ -13,7 +13,6 @@ Build status
 	       :target: https://travis-ci.org/phlax/aio.testing
 
 
-
 Installation
 ------------
 Install with:
@@ -39,7 +38,7 @@ aio.testing provides a method decorator for running asyncio-based tests
 	  class MyTestCase(unittest.TestCase):
 
 	      @aiotest
-	      def test_example(self):
+	      def test_example():
 	          yield from asyncio.sleep(2)
 		  self.assertTrue(True)
 
@@ -69,7 +68,7 @@ The callback returned should be a coroutine.
 	  class MyFutureTestCase(unittest.TestCase):
 
 	      @aiofuturetest
-	      def test_example(self):
+	      def test_example():
 	          yield from asyncio.sleep(2)
 
 		  @asyncio.coroutine
@@ -102,7 +101,7 @@ You can specify how many seconds to wait *before* running the callback tests by 
 	  class MyFutureTestCase(unittest.TestCase):
 
 	      @aiofuturetest(timeout=10)
-	      def test_example(self):
+	      def test_example():
 	          yield from asyncio.sleep(2)
 
 		  @asyncio.coroutine
@@ -133,7 +132,7 @@ You can specify how many seconds to wait *after* running the callback tests by s
 	  class MyFutureTestCase(unittest.TestCase):
 
 	      @aiofuturetest(sleep=10)
-	      def test_example(self):
+	      def test_example():
 	          yield from asyncio.sleep(2)
 
 		  @asyncio.coroutine
