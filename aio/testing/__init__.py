@@ -75,7 +75,6 @@ def aiofuturetest(*la, **kwa):
                     except Exception as e:
                         handler.exception = e
                         loop.stop()
-                        loop.close()
 
                 task = asyncio.async(future)
                 task.add_done_callback(on_setup)
