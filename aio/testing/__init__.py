@@ -81,15 +81,17 @@ def aiofuturetest(*la, **kwa):
 
                 def _handler(loop, context):
                     handler.exception = context['exception']
-                    
+
                 loop.set_exception_handler(_handler)
                 res = loop.run_forever()
 
+                if not handler.exception and not handler.called:
+                    handler.exception = Exception(
+                        "Loop already stopped: test failed to run")
+
                 if handler.exception:
                     raise handler.exception
-                if not handler.called:
-                    import sys
-                    raise Exception("Loop already stopped: test failed to run").with_traceback(sys.exc_info()[2])
+
             finally:
                 loop.stop()
                 loop.close()
