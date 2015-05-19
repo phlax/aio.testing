@@ -76,10 +76,10 @@ The callback returned should be a coroutine.
 		      yield from asyncio.sleep(2)		  
 		      self.assertTrue(True)
 
-		  # this function is called 5 seconds after being returned		      
+		  # this function is called 1 second after being returned		      
 		  return callback_test
 
-After the test_example function returns, the decorator waits for 5 seconds and then runs the tests in the callback_test function
+After the test_example function returns, the decorator waits for 1 second and then runs the tests in the callback_test function
 
 As with aiotest, the test is run in a separate loop.
 

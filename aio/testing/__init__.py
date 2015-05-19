@@ -29,7 +29,7 @@ def aiofuturetest(*la, **kwa):
     which is run after {timeout}s, the loop is then stopped.
     """
 
-    timeout = kwa.get("timeout", 5)
+    timeout = kwa.get("timeout", 1)
     sleep = kwa.get("sleep", 0)
 
     def wrapper(f):
