@@ -85,7 +85,7 @@ def aiofuturetest(*la, **kwa):
                     handler.exception = context['exception']
 
                 loop.set_exception_handler(_handler)
-                res = loop.run_forever()
+                loop.run_forever()
 
                 if not handler.exception and not handler.called:
                     handler.exception = Exception(
