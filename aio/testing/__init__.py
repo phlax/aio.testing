@@ -81,10 +81,10 @@ def run_forever(*la, **kwa):
                 task = asyncio.async(future)
                 task.add_done_callback(on_setup)
 
-                def _handler(loop, context):
+                def exception_handler(loop, context):
                     handler.exception = context['exception']
 
-                loop.set_exception_handler(_handler)
+                loop.set_exception_handler(exception_handler)
                 loop.run_forever()
 
                 if not handler.exception and not handler.called:
