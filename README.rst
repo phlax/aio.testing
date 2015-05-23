@@ -15,6 +15,9 @@ Build status
 
 Installation
 ------------
+
+Requires python >= 3.4 to work
+
 Install with:
 
 .. code:: bash
