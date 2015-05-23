@@ -5,9 +5,10 @@ aio.testing usage
 Aio testing provides 2 decorators for running asyncio tests
 
 - *aiotest*:
-  - creates a test loop
-  - calls the test with loop.run_until_done
+ - creates a test loop
+ - calls the test with loop.run_until_done
 - *aiofuturetest*:
+  
   - creates a test loop
   - calls test using loop.run_forever
   - waits for number of seconds specified in "timeout"
