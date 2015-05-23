@@ -18,7 +18,7 @@ Aio testing provides 2 decorators for running asyncio tests
   - waits for number of seconds specified in "sleep"
 
 aio.testing.run_until_complete
--------
+------------------------------
 
 Lets create a test
 
@@ -56,7 +56,7 @@ We can raise an error in the test
 
   
 aio.testing.run_forever
--------------
+-----------------------
 
 Lets create a future test
 
