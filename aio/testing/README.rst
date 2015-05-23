@@ -50,7 +50,7 @@ We can raise an error in the test
 
   >>> try:
   ...     run_test()
-  ... except AssertionError as e:
+  ... except Exception as e:
   ...     print(repr(e))
   AssertionError()
 
@@ -121,7 +121,7 @@ We can raise an error in the test
 
   >>> try:
   ...     run_test()
-  ... except AssertionError as e:
+  ... except Exception as e:
   ...     print(repr(e))
   AssertionError()
 
@@ -137,7 +137,7 @@ And we can raise an error in the test callback
   
   >>> try:
   ...     run_test()
-  ... except AssertionError as e:
+  ... except Exception as e:
   ...     print(repr(e))
   AssertionError()
 
