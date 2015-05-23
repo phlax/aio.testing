@@ -123,7 +123,7 @@ And we can raise an error in the test callback
 ...     run_test()
 ... except Exception as e:
 ...     print(repr(e))
-  AssertionError()
+AssertionError()
 
 By default the test_callback is called 1 second after being returned
 
