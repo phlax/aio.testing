@@ -1,7 +1,7 @@
 import asyncio
 
 
-def aiotest(f):
+def run_until_complete(f):
     """
     Runs an asyncio test with loop.run_until_complete.
     """
@@ -21,7 +21,7 @@ def aiotest(f):
     return wrapper
 
 
-def aiofuturetest(*la, **kwa):
+def run_forever(*la, **kwa):
     """
     Runs an asyncio test with loop.run_forever.
 
@@ -103,3 +103,6 @@ def aiofuturetest(*la, **kwa):
     if len(la) == 1 and callable(la[0]):
         return wrapper(la[0])
     return wrapper
+
+aiotest = run_until_complete
+aiofuturetest = run_forever
