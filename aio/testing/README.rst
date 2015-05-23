@@ -2,21 +2,6 @@ aio.testing usage
 =================
 
 
-Aio testing provides 2 decorators for running asyncio tests
-
-- *aio.testing.run_until_complete*:
-
-  - creates a test loop
-  - calls the test with loop.run_until_done
-
-- *aio.testing.run_forever*:
-  
-  - creates a test loop
-  - calls test using loop.run_forever
-  - waits for number of seconds specified in "timeout"
-  - if test returns a coroutine, calls the coroutine
-  - waits for number of seconds specified in "sleep"
-
 aio.testing.run_until_complete
 ------------------------------
 

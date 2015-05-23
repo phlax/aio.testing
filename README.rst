@@ -22,8 +22,25 @@ Install with:
 	  pip install aio.testing
 
 
-@aio.testing.run_until_complete decorator
------------------------------------------
+Aio testing provides 2 decorators for running asyncio tests
+
+- *aio.testing.run_until_complete*:
+
+  - creates a test loop
+  - calls the test with loop.run_until_complete
+
+- *aio.testing.run_forever*:
+  
+  - creates a test loop
+  - calls test using loop.run_forever
+  - waits for number of seconds specified in "timeout" (default = 1)
+  - if test returns a callable, calls it as a coroutine
+  - waits for number of seconds specified in "sleep" (default = 0)
+
+	  
+
+@aio.testing.run_until_complete
+-------------------------------
 
 aio.testing provides a method decorator for running asyncio-based tests
 
@@ -48,8 +65,8 @@ Prior to the test running asyncio.get_new_loop() is called and set using asyncio
 On completion of the test asyncio.set_event_loop() is again called with the original event loop.
 
 
-@aio.testing.run_forever decorator
-----------------------------------
+@aio.testing.run_forever
+------------------------
 
 If your code needs to test long-running tasks, you can use the @aio.testing.run_forever decorator.
 
@@ -84,8 +101,8 @@ The callback is wrapped in a coroutine, and called after 1 second
 As with aio.testing.run_until_complete, the test is run in a separate loop.
 
 		  
-@aio.testing.run_forever decorator with timeout
------------------------------------------------
+@aio.testing.run_forever with timeout
+-------------------------------------
 
 You can specify how many seconds to wait *before* running the callback tests by setting the timeout value
 
@@ -112,8 +129,8 @@ You can specify how many seconds to wait *before* running the callback tests by 
 		  return callback_test
 
 
-@aio.testing.run_forever decorator with sleep
----------------------------------------------
+@aio.testing.run_forever with sleep
+-----------------------------------
 
 Sometimes a test needs to wait for some time after services have been stopped and the test loop has been destroyed.
 
