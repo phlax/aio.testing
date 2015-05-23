@@ -62,7 +62,7 @@ True
 And again, after the test has run we have the original event loop back
 
 >>> asyncio.get_event_loop() == loop_before_test
-  True
+True
   
 If the test returns a callable, its called 1 second later.
 
