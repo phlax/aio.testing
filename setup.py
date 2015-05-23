@@ -44,6 +44,7 @@ setup(
     license='GPL',
     packages=find_packages(),
     namespace_packages=['aio'],
+    package_data={'': ['*.rst']},    
     include_package_data=True,
     zip_safe=False,
     test_suite="aio.testing.tests",
