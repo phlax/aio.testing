@@ -51,11 +51,13 @@ On completion of the test asyncio.set_event_loop() is again called with the orig
 @aiofuturetest decorator
 ------------------------
 
-If your code needs to test long-running tasks, you can use the @aiofuturetest decorator
+If your code needs to test long-running tasks, you can use the @aiofuturetest decorator.
 
-Any (async) setup required can be done in the body of the test function which returns a test callback
+The @aiofuturetest decorator uses loop.run_forever to run the test.
 
-The callback returned should be a coroutine.
+Any setup required can be done in the body of the test function which can optionally return a test callback
+
+The callback is wrapped in a coroutine, and called after 1 second
 
 .. code:: python
 
@@ -71,7 +73,6 @@ The callback returned should be a coroutine.
 	      def test_example():
 	          yield from asyncio.sleep(2)
 
-		  @asyncio.coroutine
 		  def callback_test(self):
 		      yield from asyncio.sleep(2)		  
 		      self.assertTrue(True)
@@ -79,7 +80,6 @@ The callback returned should be a coroutine.
 		  # this function is called 1 second after being returned		      
 		  return callback_test
 
-After the test_example function returns, the decorator waits for 1 second and then runs the tests in the callback_test function
 
 As with aiotest, the test is run in a separate loop.
 
@@ -104,7 +104,6 @@ You can specify how many seconds to wait *before* running the callback tests by 
 	      def test_example():
 	          yield from asyncio.sleep(2)
 
-		  @asyncio.coroutine
 		  def callback_test(self):
 		      yield from asyncio.sleep(2)		  
 		      self.assertTrue(True)
@@ -135,7 +134,6 @@ You can specify how many seconds to wait *after* running the callback tests by s
 	      def test_example():
 	          yield from asyncio.sleep(2)
 
-		  @asyncio.coroutine
 		  def callback_test(self):
 		      yield from asyncio.sleep(2)		  
 		      self.assertTrue(True)
