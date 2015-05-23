@@ -29,13 +29,13 @@ Lets create a test
   ... def run_test(parent_loop):
   ...     yield from asyncio.sleep(1)
   ... 
-  ...     print(asyncio.get_event_loop() == parent_loop)
+  ...     print(asyncio.get_event_loop() != parent_loop)
 
 And lets check that the test loop is not the same as the current one
 
   >>> loop_before_test = asyncio.get_event_loop()
   >>> run_test(loop_before_test)
-  False
+  True
 
 After the test has run we have the original event loop back
 
@@ -67,13 +67,13 @@ Lets create a future test
   ... def run_test(parent_loop):
   ...     yield from asyncio.sleep(1)
   ... 
-  ...     print(asyncio.get_event_loop() == parent_loop)
+  ...     print(asyncio.get_event_loop() != parent_loop)
 
 Just like with aiotest, the test is run in a separate loop
 
   >>> loop_before_test = asyncio.get_event_loop()  
   >>> run_test(loop_before_test)
-  False
+  True
 
 And again, after the test has run we have the original event loop back
 
