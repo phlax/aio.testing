@@ -5,6 +5,6 @@ python:
 install:
  - pip install .
 
-
 script:
  - python setup.py test
+ - python -m doctest aio/testing/README.rst
