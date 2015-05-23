@@ -172,7 +172,7 @@ You can set the amount of time to wait before calling the test_callback by setti
   >>> run_test()
   callback called 3 second(s) after test
   
-You can also set the amount of time to wait after the test has completely finished, including the test_callback, by setting the "sleep" argument on the decorator
+You can also set the amount of time to wait after the test has completely finished, by setting the "sleep" argument on the decorator
 
   >>> @aiofuturetest(sleep=3)
   ... def run_test(test_time):
