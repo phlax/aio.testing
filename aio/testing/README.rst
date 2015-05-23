@@ -102,7 +102,6 @@ The test_callback is always wrapped in asyncio.coroutine if its not one already
 
   >>> @aiofuturetest
   ... def run_test():
-  ...     test_loop = asyncio.get_event_loop()
   ... 
   ...     def test_callback():
   ...         yield from asyncio.sleep(1)
