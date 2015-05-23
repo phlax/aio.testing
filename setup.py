@@ -4,7 +4,7 @@ aio.testing
 import os
 from setuptools import setup, find_packages
 
-version = "0.0.4"
+version = "0.0.5"
 
 
 def read(*rnames):
