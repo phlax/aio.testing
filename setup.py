@@ -22,8 +22,6 @@ try:
         '\n'
         + read("aio", "testing", "README.rst")
         + '\n')
-except IOError:
-    pass
 except FileNotFoundError:
     pass
 
