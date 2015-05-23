@@ -49,16 +49,18 @@ def aiofuturetest(*la, **kwa):
 
                 handler = Handler()
 
-                def run_test(f):
+                def run_test_callback(f):
                     if not callable(f):
                         loop.stop()
                         handler.called = True
                         return
 
                     @asyncio.coroutine
-                    def wrapper():
+                    def wrapper(cb):
+                        if not asyncio.iscoroutinefunction(cb):
+                            cb = asyncio.coroutine(cb)
                         try:
-                            yield from f()
+                            yield from cb()
                             handler.called = True
                         except Exception as e:
                             handler.exception = e
@@ -66,12 +68,12 @@ def aiofuturetest(*la, **kwa):
                             if sleep:
                                 yield from asyncio.sleep(sleep)
                             loop.stop()
-                    asyncio.async(wrapper())
+                    asyncio.async(wrapper(f))
 
                 def on_setup(res):
                     try:
                         loop.call_later(
-                            timeout, run_test, res.result())
+                            timeout, run_test_callback, res.result())
                     except Exception as e:
                         handler.exception = e
                         loop.stop()

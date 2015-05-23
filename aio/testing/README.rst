@@ -80,7 +80,7 @@ And again, after the test has run we have the original event loop back
   >>> asyncio.get_event_loop() == loop_before_test
   True
   
-If the test returns a coroutine, the coroutine is called 1 second later.
+If the test returns a callable, its called 1 second later.
 
 The test_callback runs in the same loop as the test
   
@@ -97,6 +97,22 @@ The test_callback runs in the same loop as the test
   
   >>> run_test()
   True
+
+The test_callback is always wrapped in asyncio.coroutine if its not one already
+
+  >>> @aiofuturetest
+  ... def run_test():
+  ...     test_loop = asyncio.get_event_loop()
+  ... 
+  ...     def test_callback():
+  ...         yield from asyncio.sleep(1)
+  ...         print("test_callback is always wrapped in a coroutine!")
+  ... 
+  ...     return test_callback
+  
+  >>> run_test()
+  test_callback is always wrapped in a coroutine!
+
 
 We can raise an error in the test
 
@@ -115,7 +131,6 @@ And we can raise an error in the test callback
   >>> @aiofuturetest
   ... def run_test():
   ... 
-  ...     @asyncio.coroutine
   ...     def test_callback():
   ...         assert(True == False)
   ... 
@@ -135,11 +150,9 @@ By default the test_callback is called 1 second after being returned
   ... def run_test():
   ...     test_run_at = int(time.time())
   ... 
-  ...     @asyncio.coroutine
-  ...     def test_callback():
-  ...         callback_run_at = int(time.time())
+  ...     return lambda: (
   ...         print("callback called %s second(s) after test" % (
-  ...             callback_run_at - test_run_at))
+  ...             int(time.time()) - test_run_at)))
   ... 
   ...     return test_callback
   
@@ -154,14 +167,9 @@ You can set the amount of time to wait before calling the test_callback by setti
   ... def run_test():
   ...     test_run_at = int(time.time())
   ... 
-  ...     @asyncio.coroutine
-  ...     def test_callback():
-  ...         callback_run_at = int(time.time())
-  ... 
-  ...         print("callback called %s second(s) after test" % (
-  ...             callback_run_at - test_run_at))
-  ... 
-  ...     return test_callback
+  ...     return lambda: print(
+  ...         "callback called %s second(s) after test" % (
+  ...             int(time.time()) - test_run_at))
   
   >>> run_test()
   callback called 3 second(s) after test
@@ -170,15 +178,12 @@ You can also set the amount of time to wait after the test has completely finish
 
   >>> @aiofuturetest(sleep=3)
   ... def run_test(test_time):
-  ... 
-  ...     @asyncio.coroutine
-  ...     def test_callback():
-  ...         test_time['completed_at'] = int(time.time())
-  ... 
-  ...     return test_callback
+  ...     return lambda: (
+  ...         test_time.__setitem__('completed_at', int(time.time())))
 
   >>> test_time = {}
   >>> run_test(test_time)
-  >>> waiting_time = int(time.time()) - test_time['completed_at']
-  >>> print("test waited %s second(s) after completing" % waiting_time)
+  
+  >>> print("test waited %s second(s) after completing" % (
+  ...     int(time.time()) - test_time['completed_at']))
   test waited 3 second(s) after completing
