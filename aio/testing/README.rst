@@ -153,8 +153,6 @@ By default the test_callback is called 1 second after being returned
   ...     return lambda: (
   ...         print("callback called %s second(s) after test" % (
   ...             int(time.time()) - test_run_at)))
-  ... 
-  ...     return test_callback
   
   >>> run_test()
   callback called 1 second(s) after test
