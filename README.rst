@@ -115,7 +115,7 @@ You can specify how many seconds to wait *before* running the callback tests by 
 	  import unittest
 	  import asyncio
 
-	  from aio.testing import aio.testing.run_forever
+	  import aio.testing
 
 
 	  class MyFutureTestCase(unittest.TestCase):
@@ -145,7 +145,7 @@ You can specify how many seconds to wait *after* running the callback tests by s
 	  import unittest
 	  import asyncio
 
-	  from aio.testing import aio.testing.run_forever
+	  import aio.testing
 
 
 	  class MyFutureTestCase(unittest.TestCase):
