@@ -16,7 +16,7 @@ Build status
 Installation
 ------------
 
-Requires python >= 3.4 to work
+Requires python >= 3.4
 
 Install with:
 
