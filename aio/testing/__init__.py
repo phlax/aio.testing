@@ -1,4 +1,6 @@
 import asyncio
+from aio.testing.contextmanagers import redirect_stderr, redirect_all
+(redirect_stderr, redirect_all)
 
 
 def run_until_complete(f):
