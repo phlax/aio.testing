@@ -2,12 +2,14 @@ import asyncio
 from aio.testing.contextmanagers import redirect_stderr, redirect_all
 (redirect_stderr, redirect_all)
 
+from functools import wraps
 
 def run_until_complete(f):
     """
     Runs an asyncio test with loop.run_until_complete.
     """
 
+    @wraps(f)
     def wrapper(*args, **kwargs):
         try:
             parent_loop = asyncio.get_event_loop()
@@ -34,6 +36,7 @@ def run_forever(*la, **kwa):
     timeout = kwa.get("timeout", 1)
     sleep = kwa.get("sleep", 0)
 
+    @wraps(f)
     def wrapper(f):
 
         def wrapped(*la, **kwa):
