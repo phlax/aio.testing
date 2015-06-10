@@ -164,8 +164,9 @@ You can specify how many seconds to wait *after* running the callback tests by s
 Contributing
 -----------------------------------
 
-To run unit tests, use;
+To run unit tests, use:
 
-```
-python setup.py test
-```
+.. code:: bash
+
+	  python setup.py test
+
