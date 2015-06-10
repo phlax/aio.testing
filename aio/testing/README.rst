@@ -1,7 +1,6 @@
 aio.testing usage
 =================
 
-
 aio.testing.run_until_complete
 ------------------------------
 
@@ -168,3 +167,11 @@ You can also set the amount of time to wait after the test has completely finish
 >>> print("test waited %s second(s) after completing" % (
 ...     int(time.time()) - test_time['completed_at']))
 test waited 3 second(s) after completing
+
+### Contributing
+
+To run unit tests, use;
+
+```
+python setup.py test
+```
