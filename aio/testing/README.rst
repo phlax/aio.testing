@@ -1,7 +1,6 @@
 aio.testing usage
 =================
 
-
 aio.testing.run_until_complete
 ------------------------------
 
