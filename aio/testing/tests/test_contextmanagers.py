@@ -1,7 +1,7 @@
 import io
 import unittest
 
-import sys
+import asyncio
 import os
 
 
@@ -12,24 +12,56 @@ ROOT_PATH = os.path.abspath(
 #assert False, sys.path
 
 from aio.testing.contextmanagers import redirect_stderr, redirect_all
-from aio.testing import run_until_complete, run_forever
+from aio.testing import run_until_complete, run_forever, current_loop
+
 
 class AioTestingContextmanagersTestCase(unittest.TestCase):
 
+    @classmethod
+    def setUpClass(cls):
+        cls.parent_loop = asyncio.get_event_loop()
+
     @run_until_complete
     def test_run_until_complete(self):
-        self.assertEqual(self.test_run_until_complete.__name__, 
-            'test_run_until_complete')
+        self.assertEqual(self.test_run_until_complete.__name__,
+                         'test_run_until_complete')
+        self.assertNotEqual(asyncio.get_event_loop(),
+                            AioTestingContextmanagersTestCase.parent_loop)
+
+    @run_until_complete(loop=current_loop)
+    def test_run_until_complete_current_loop(self):
+        self.assertEqual(self.test_run_until_complete_current_loop.__name__,
+                         'test_run_until_complete_current_loop')
+        self.assertEqual(asyncio.get_event_loop(),
+                         AioTestingContextmanagersTestCase.parent_loop)
 
     @run_forever
     def test_run_forever(self):
-        self.assertEqual(self.test_run_forever.__name__, 
-            'test_run_forever')
+        self.assertEqual(self.test_run_forever.__name__,
+                         'test_run_forever')
+        self.assertNotEqual(asyncio.get_event_loop(),
+                            AioTestingContextmanagersTestCase.parent_loop)
+
+    @run_forever(loop=current_loop)
+    def test_run_forever_current_loop(self):
+        self.assertEqual(self.test_run_forever.__name__,
+                         'test_run_forever')
+        self.assertEqual(asyncio.get_event_loop(),
+                         AioTestingContextmanagersTestCase.parent_loop)
 
     @run_forever(timeout=1)
     def test_run_forever_with_args(self):
-        self.assertEqual(self.test_run_forever.__name__, 
+        self.assertEqual(self.test_run_forever.__name__,
             'test_run_forever')
+        self.assertNotEqual(asyncio.get_event_loop(),
+                            AioTestingContextmanagersTestCase.parent_loop)
+
+    @run_forever(timeout=1, loop=current_loop)
+    def test_run_forever_with_args_current_loop(self):
+        self.assertEqual(self.test_run_forever.__name__,
+                         'test_run_forever')
+        self.assertEqual(asyncio.get_event_loop(),
+                         AioTestingContextmanagersTestCase.parent_loop)
 
     def test_redirect_stderr(self):
         with io.StringIO() as o, redirect_stderr(o):

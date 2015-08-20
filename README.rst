@@ -161,6 +161,42 @@ You can specify how many seconds to wait *after* running the callback tests by s
 		  return callback_test
 		  
 
+Supplying your own event loop
+-----------------------------------
+
+By default, aio.testing creates a new event loop for each test. There may be
+times that you prefer to control which event loop the tests are executed on.
+For example, you may create some expensive resource on a loop in a fixture
+that you wish to share among tests.
+
+Both aio.testing.run_until_complete and aio.testing.run_forever accept an
+optional named argument called :code:`loop`. The value of :code:`loop` should
+be a `context manager`_ that returns a loop. aio.testing provides the
+:code:`current_loop` context manager which simply returns the value of
+asyncio.get_event_loop():
+
+.. _context manager: https://docs.python.org/3/reference/datamodel.html#context-managers
+
+.. code:: python
+
+	  import unittest
+	  import asyncio
+
+	  import aio.testing
+
+
+	  class MyTestCase(unittest.TestCase):
+
+              @classmethod
+              def setUpClass(cls):
+                  cls.loop = asyncio.get_event_loop()
+
+	      @aio.testing.run_until_complete(loop=aio.testing.current_loop)
+	      def test_example():
+	          yield from asyncio.sleep(2)
+		  self.assertEqual(asyncio.get_event_loop(), MyTestCase.loop)
+
+
 Contributing
 -----------------------------------
 
@@ -169,4 +205,10 @@ To run unit tests, use:
 .. code:: bash
 
 	  python setup.py test
+
+To run doc tests, use:
+
+.. code:: bash
+
+	  python -m doctest aio/testing/README.rst
 
