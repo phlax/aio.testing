@@ -9,8 +9,8 @@ Test utils for the aio_ asyncio framework
 Build status
 ------------
 
-.. image:: https://travis-ci.org/phlax/aio.testing.svg?branch=master
-	       :target: https://travis-ci.org/phlax/aio.testing
+.. image:: https://travis-ci.org/synca/aio.testing.svg?branch=master
+	       :target: https://travis-ci.org/synca/aio.testing
 
 
 Installation
