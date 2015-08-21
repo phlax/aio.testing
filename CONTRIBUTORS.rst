@@ -1,4 +1,6 @@
 Contributors
 -----------------------------
 
-* Cal Leeming (@sleepycal)
+* phlax
+* Cal Leeming (@sleepycal/foxx)
+* patrick-jones

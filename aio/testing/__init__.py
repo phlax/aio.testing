@@ -2,35 +2,10 @@ import asyncio
 from aio.testing.contextmanagers import redirect_stderr, redirect_all
 (redirect_stderr, redirect_all)
 
-import contextlib
 import functools
 
-
-@contextlib.contextmanager
-def current_loop():
-    """A context manager which simply yields the current event loop."""
-    yield asyncio.get_event_loop()
-
-
-class child_loop:
-    """
-    A context manager to create a new event loop,
-    restoring the original loop on exit.
-    """
-    def __init__(self):
-        self._parent_loop = None
-        self._child_loop = None
-
-    def __enter__(self):
-        self._parent_loop = asyncio.get_event_loop()
-        self._child_loop = asyncio.new_event_loop()
-        asyncio.set_event_loop(self._child_loop)
-        return self._child_loop
-
-    def __exit__(self, exc_type, exc_val, exc_tb):
-        self._child_loop.stop()
-        self._child_loop.close()
-        asyncio.set_event_loop(self._parent_loop)
+from .contextmanagers import child_loop, current_loop
+current_loop
 
 
 def run_until_complete(*la, **kwa):
@@ -38,6 +13,7 @@ def run_until_complete(*la, **kwa):
     Runs an asyncio test with loop.run_until_complete.
     """
     loop_context = kwa.get("loop", child_loop)
+
     def wrapper(f):
         def wrapped(*args, **kwargs):
             with loop_context() as loop:
